@@ -5,7 +5,7 @@ Create a BridgeDb Gene-Variant database from Ensembl
 
 VariantReader [Ensembl.vcf] [output_file]
 
-  - You can find the vcf source file here: ftp://ftp.ensembl.org/pub/current_variation/vcf/homo_sapiens/homo_sapiens_incl_consequences.vcf.gz
+  - You can find the vcf source file here: [homo_sapiens_incl_consequences.vcf.gz](//ftp.ensembl.org/pub/current_variation/vcf/)
 
 * Build the BridgeDb Gene-Variant database, take a .config file as input
 
