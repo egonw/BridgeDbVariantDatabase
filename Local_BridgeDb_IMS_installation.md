@@ -16,7 +16,7 @@ trainingMaterial:
   author:
     - "@type": Person
       name: Jonathan Mélius
-      identifier: 0000-0002-6106-1347
+      identifier: 0000-0001-8624-2972
     - "@type": Person
       name: Egon Willighagen
       identifier: 0000-0001-7542-0286
