@@ -1,2 +1,2 @@
 # BridgeDbVariantDatabase
-Create a BridgeDb Geve-Variant database from Ensembl
+Create a BridgeDb Gene-Variant database from Ensembl
