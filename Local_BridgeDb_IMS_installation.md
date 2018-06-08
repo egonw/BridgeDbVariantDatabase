@@ -60,3 +60,87 @@ Pull the IMS docker image:
 docker pull openphacts/identitymappingservice
 ```
 
+## Step 4. Set up the MySQL service
+
+Create the mysql docker image to store the linksets:
+
+```shell
+docker run --name mysql-for-ims -e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
+           -e MYSQL_DATABASE=ims -e MYSQL_USER=ims -e MYSQL_PASSWORD=ims \
+           -d mysql
+```
+
+## Step 5. Loading the gene-gene and gene-variant link sets
+
+The next command line example assumes that the file `load.xml` is present the `/home/johndoe/data5` directory.
+
+Unix:
+```shell
+docker run --link mysql-for-ims:mysql -v /home/johndoe/data5:/staging \
+           openphacts/identitymappingservice loader file:///staging/load.xml
+```
+
+MINGW64 / Windows:
+```shell
+docker run --link mysql-for-ims:mysql -v /c/Users/johndoe/data5:/staging openphacts/identitymappingservice loader file:///staging/load.xml
+```
+
+An example of the load.xml file (more info):
+
+```xml
+<?xml version="1.0"?>
+<loadSteps>
+  <clearAll/>
+  <void>file:///staging/Ensembl_Hs_dataset.void.ttl</void>
+  <linkset>file:///staging/Ensembl_Hs_wikigenes.dependent.LS.ttl</linkset>
+  <linkset>file:///staging/Ensembl_dbSNP.LS.ttl</linkset>
+</loadSteps>
+```
+
+## Step 6. Run the IMS docker image
+
+```shell
+docker run --name ims --link mysql-for-ims:mysql -p 8081:8080 -d openphacts/identitymappingservice
+```
+
+You can confirm the instance is running with:
+
+```shell
+docker ps
+```
+
+Both these commands will give you a long identifier which you should remember for later.
+
+## Step 7. Check the QueryExpander expose at the local port 8081
+
+Open the following webpage in a browser:
+* Unix: [http://localhost:8081/QueryExpander/](http://localhost:8081/QueryExpander/)
+* Windows: [http://192.168.99.100:8081/QueryExpander/](http://192.168.99.100:8081/QueryExpander/)
+
+It should look like this:
+
+XXX
+
+## Step 8. Shutting down the Docker image
+
+Shutting down the docker is done with the command docker stop and the identifier you got with the docker run or docker ps commands, for example:
+
+```shell
+docker stop b5e9715818f6
+```
+
+of
+
+```shell
+docker stop ims
+```
+
+Where `b5e9715818f6` or `ims` happens to be the ID/name for the running image for the author at the time of writing.
+
+You can delete the images with:
+
+```shell
+docker container rm b5e9715818f6 d989788c0b03
+```
+
+Where the two IDs are the one for the MySQL-IMS docker and the IMS docker containers.
