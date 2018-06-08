@@ -119,7 +119,7 @@ Open the following webpage in a browser:
 
 It should look like this:
 
-XXX
+![Screenshot of the BridgeDb IMS landing page](image2.png)
 
 ## Step 8. Shutting down the Docker image
 
