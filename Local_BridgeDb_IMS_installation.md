@@ -91,9 +91,8 @@ An example of the load.xml file (more info):
 <?xml version="1.0"?>
 <loadSteps>
   <clearAll/>
-  <void>file:///staging/Ensembl_Hs_dataset.void.ttl</void>
-  <linkset>file:///staging/Ensembl_Hs_wikigenes.dependent.LS.ttl</linkset>
-  <linkset>file:///staging/Ensembl_dbSNP.LS.ttl</linkset>
+  <void>file://staging/Ensembl_SNP_dataset.void.ttl</void>
+  <linkset>file:///staging/PolyPhen_91.ttl</linkset>
 </loadSteps>
 ```
 
