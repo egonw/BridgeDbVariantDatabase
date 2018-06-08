@@ -47,9 +47,10 @@ Download the linksets data you want to load into the IMS from
 A prerequisite is a Docker installation. You can download Docker from various places and many GNU/Linux distributions
 ship a version as part of their distribution. Other options include:
   
-* Docker Community Edition: https://www.docker.com/get-docker
-* Docker Toolbox for older Mac and Windows versions: https://docs.docker.com/toolbox/overview/
-* Docker for Windows: https://docs.docker.com/docker-for-windows/
+* Docker Community Edition: [https://www.docker.com/get-docker](https://www.docker.com/get-docker)
+* Docker Toolbox for older Mac and Windows versions:
+  [https://docs.docker.com/toolbox/overview/](https://docs.docker.com/toolbox/overview/)
+* Docker for Windows: [https://docs.docker.com/docker-for-windows/](https://docs.docker.com/docker-for-windows/)
   
 ## Step 3. Downloading the BridgeDb IMS Docker
   
