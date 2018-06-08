@@ -39,7 +39,8 @@ with gene-to-variant and variant-to-gene functionality.
 
 1. Downloading the gene-variant mappings
   
-  Download the linksets data you want to load into the IMS from http://bridgedb.org/data/gene_database/linkset/.
+  Download the linksets data you want to load into the IMS from
+  [http://bridgedb.org/data/gene_database/linkset/](http://bridgedb.org/data/gene_database/linkset/).
   
 2. Install Docker
 
