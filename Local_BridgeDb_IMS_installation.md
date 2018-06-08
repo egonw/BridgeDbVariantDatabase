@@ -38,23 +38,23 @@ This tutorial explains how to install and run a BridgeDb Identifier Mapping Serv
 with gene-to-variant and variant-to-gene functionality.
 
 1. Downloading the gene-variant mappings
-
-Download the linksets data you want to load into the IMS from http://bridgedb.org/data/gene_database/linkset/.
-
+  
+  Download the linksets data you want to load into the IMS from http://bridgedb.org/data/gene_database/linkset/.
+  
 2. Install Docker
 
-A prerequisite is a Docker installation. You can download Docker from various places and many GNU/Linux distributions
-ship a version as part of their distribution. Other options include:
-
-* Docker Community Edition: https://www.docker.com/get-docker
-* Docker Toolbox for older Mac and Windows versions: https://docs.docker.com/toolbox/overview/
-* Docker for Windows: https://docs.docker.com/docker-for-windows/
-
+  A prerequisite is a Docker installation. You can download Docker from various places and many GNU/Linux distributions
+  ship a version as part of their distribution. Other options include:
+  
+  * Docker Community Edition: https://www.docker.com/get-docker
+  * Docker Toolbox for older Mac and Windows versions: https://docs.docker.com/toolbox/overview/
+  * Docker for Windows: https://docs.docker.com/docker-for-windows/
+  
 3. Downloading the BridgeDb IMS Docker
+  
+  Pull the IMS docker image:
 
-Pull the IMS docker image:
-
-```shell
-docker pull openphacts/identitymappingservice
-```
+  ```shell
+  docker pull openphacts/identitymappingservice
+  ```
 
