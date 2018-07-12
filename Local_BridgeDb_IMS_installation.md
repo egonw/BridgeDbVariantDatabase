@@ -12,7 +12,7 @@ trainingMaterial:
   genre:
     - "@type": URL
       url: http://edamontology.org/topic_0091 # Bioinformatics
-  name: Browsing the eNanoMapper ontology with BioPortal, AberOWL and Protégé
+  name: How to install and load the Identifier Mapping Service with data needed for gene-to-variant and variant-to-gene
   author:
     - "@type": Person
       name: Jonathan Mélius
@@ -32,7 +32,7 @@ trainingMaterial:
   version: 1.0
 ---
 
-# Tutorial - how to install and load IMS with data needed for gene-to-variant and variant-to-gene
+# Tutorial - How to install and load the Identifier Mapping Service with data needed for gene-to-variant and variant-to-gene
 
 This tutorial explains how to install and run a BridgeDb Identifier Mapping Service (IMS)
 with gene-to-variant and variant-to-gene functionality.
