@@ -5,7 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -14,20 +17,27 @@ public class VariantReader {
 	public static Map<String,String> map = new HashMap<String,String>();
 	static int count = 0;
 	static int transcript = 0;
+	static BufferedWriter writer;
+	static boolean flag;	
+	static List<String> subset_list;
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException  {
 
 		File in = new File(args[0]);
-
-		map = TranscriptReader.read();
+		File f = new File (args[1]);
 		
-		File out = new File(args[1]);
-
-		BufferedWriter writer = new BufferedWriter(new FileWriter(out,true));
-
+		SpeciesConfiguration config = new SpeciesConfiguration(f.getAbsolutePath());
+		subset_list = config.getSubsetList();
+		String term = config.getSubsetTerm();
+		
+		InputStream is = config.getTranscript();		
+		map = transcriptReader(is);
+		
+		File out = new File(config.getEndpoint());
+		writer = new BufferedWriter(new FileWriter(out,true));
+		System.out.println("reading :"+out.getAbsolutePath());
 		try (BufferedReader br = new BufferedReader(new FileReader(in))) {
 		    String line;
-
 		    while ((line = br.readLine()) != null) {
 
 		       // process the line.
@@ -54,30 +64,12 @@ public class VariantReader {
 		    			ref+ "\t" +
 		    			alt;
 
-		    	boolean flag = false;
+		    	flag = false;
 				
-		    	int index = info.indexOf("Polyphen=");
-		    	info = info.substring(index); 
-		    	index = info.indexOf(";");
-		    	info = info.substring(0,index);
-				for(String w: info.split(",")){    			
-		    		if (w.contains("probably_damaging")){
-		    			String [] polyphen = w.split("\\|");
-		    			String transcriptID = "";
-		    			if (w.split("\\|").length>3){
-		    				transcriptID = polyphen[3];
-		    			}
-		    			else{
-		    				transcriptID = polyphen[2];
-			    			count++;
-		    			}
-		    			if (map.get(transcriptID)!=null){
-		    				flag = true;
-			    			tmp += "\t" + map.get(transcriptID);
-			    			transcript++;
-		    			}
-		    		}
-		    	}
+		    	if (term.equals("polyphen"))
+		    		tmp = check_polyphen(info, tmp);
+		    	else
+		    		tmp = check_subset(info, tmp);
 		    	
 		    	if (flag)
 		    		writer.append(tmp+"\n");
@@ -90,4 +82,80 @@ public class VariantReader {
 		writer.flush();
 		writer.close();
 	}
+	
+	
+	public static String check_polyphen (String info, String tmp){
+		
+		int index = info.indexOf("Polyphen=");
+		info = info.substring(index); 
+		index = info.indexOf(";");
+		info = info.substring(0,index);
+		for(String w: info.split(",")){    		
+			
+			if (w.contains("probably_damaging")){
+				String [] polyphen = w.split("\\|");
+				String transcriptID = "";
+				if (w.split("\\|").length>3){
+					float score = Float.parseFloat(polyphen[2]);
+					if (score >= 0.908){
+						transcriptID = polyphen[3];
+					}
+				}
+				else{
+					float score = Float.parseFloat(polyphen[1]);
+					if (score >= 0.908){
+						transcriptID = polyphen[2];	    					
+					}
+					count++;
+				}
+				if (map.get(transcriptID)!=null){
+					flag = true;
+					tmp += "\t" + map.get(transcriptID);
+					transcript++;
+				}
+			}
+		}
+		return tmp;
+	}
+	
+	public static String check_subset (String info, String tmp){		
+		int index = info.indexOf("VE=");
+    	info = info.substring(index);
+    	for(String w: info.split(",")){
+    		if (checkIfExists(w)){
+    			String transcriptID = w.split("\\|")[3];
+    			if (map.get(transcriptID)!=null){
+    				flag = true;
+    				tmp += "\t" + map.get(transcriptID);
+    				transcript++;
+    			}
+    		}
+    	}
+    	return tmp;
+	}
+	
+	public static boolean checkIfExists(String w) {
+	    for (String element:subset_list ) {
+	    	if (w.contains(element) ) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public static Map<String,String> transcriptReader(InputStream in) throws FileNotFoundException, IOException {
+		Map<String,String> map = new HashMap<String,String>();
+
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+			String line= br.readLine();
+			while ((line = br.readLine()) != null) {
+				String[] split = line.split("\t");
+				map.put(split[1], split[0]);
+			}
+			br.close();
+		}
+		return map;
+	}
+	
+	
 }
