@@ -21,6 +21,8 @@ trainingMaterial:
       name: Egon Willighagen
       identifier: 0000-0001-7542-0286
     - "@type": Person
+      name: Petros Papadopoulos
+    - "@type": Person
       name: Friederike Ehrhart
       identifier: 0000-0002-7770-620X
   difficultyLevel: [Beginner]
@@ -29,7 +31,7 @@ trainingMaterial:
   url:
     - "@type": URL
       url: https://enanomapper.github.io/tutorials/BrowseOntology/Tutorial%20browsing%20eNM%20ontology.html
-  version: 1.0
+  version: 1.1
 ---
 
 # Tutorial - How to install and load the Identifier Mapping Service with data needed for gene-to-variant and variant-to-gene
@@ -67,7 +69,7 @@ Create the mysql docker image to store the linksets:
 ```shell
 docker run --name mysql-for-ims -e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
            -e MYSQL_DATABASE=ims -e MYSQL_USER=ims -e MYSQL_PASSWORD=ims \
-           -d mysql
+           -d mysql --default-authentication-plugin=mysql_native_password
 ```
 
 ## Step 5. Loading the gene-gene and gene-variant link sets
