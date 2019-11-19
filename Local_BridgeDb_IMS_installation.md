@@ -64,13 +64,22 @@ docker pull openphacts/identitymappingservice
 
 ## Step 4. Set up the MySQL service
 
-Create the mysql docker image to store the linksets:
+Create the MySQL docker image to store the linksets, for MySQL 6 or higher:
 
 ```shell
 docker run --name mysql-for-ims -e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
            -e MYSQL_DATABASE=ims -e MYSQL_USER=ims -e MYSQL_PASSWORD=ims \
            -d mysql --default-authentication-plugin=mysql_native_password
 ```
+
+For MySQL 5.5 or lower, use:
+
+```shell
+docker run --name mysql-for-ims -e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
+           -e MYSQL_DATABASE=ims -e MYSQL_USER=ims -e MYSQL_PASSWORD=ims \
+           -d mysql:5.5
+```
+
 
 ## Step 5. Loading the gene-gene and gene-variant link sets
 
